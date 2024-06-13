@@ -95,6 +95,7 @@ func newARMTypeCreator(
 
 	result.visitor = astmodel.TypeVisitorBuilder[any]{
 		VisitInternalTypeName: result.visitARMTypeName,
+		VisitValidatedType:    result.visitValidatedType,
 	}.Build()
 
 	return result
@@ -532,6 +533,13 @@ func (c *armTypeCreator) visitARMTypeName(
 	}
 
 	return astmodel.CreateARMTypeName(def.Name()), nil
+}
+
+// visitValidatedType unwraps the base type out of the validation, as we don't need the validation for the ARM payload
+func (c *armTypeCreator) visitValidatedType(
+	it *astmodel.ValidatedType,
+) (astmodel.Type, error) {
+	return it.ElementType(), nil
 }
 
 func (c *armTypeCreator) createSpecConversionContext(name astmodel.InternalTypeName) *armPropertyTypeConversionContext {
