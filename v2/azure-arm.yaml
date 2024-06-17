@@ -2779,6 +2779,8 @@ objectModelConfiguration:
       PrivateEndpoint:
         $export: true
         $supportedFrom: v2.0.0
+        $manualConfigs:
+          - PrimaryNicPrivateIPAddress
       PrivateLinkService:
         $export: true
         $supportedFrom: v2.0.0
